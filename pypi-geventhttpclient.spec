@@ -4,12 +4,14 @@
 #
 Name     : pypi-geventhttpclient
 Version  : 1.5.3
-Release  : 2
+Release  : 3
 URL      : https://files.pythonhosted.org/packages/7e/52/f799b56882eb2730c09c281bcc7f71607963853302ce27f3c565aa736bc8/geventhttpclient-1.5.3.tar.gz
 Source0  : https://files.pythonhosted.org/packages/7e/52/f799b56882eb2730c09c281bcc7f71607963853302ce27f3c565aa736bc8/geventhttpclient-1.5.3.tar.gz
 Summary  : http client library for gevent
 Group    : Development/Tools
 License  : MIT
+Requires: pypi-geventhttpclient-filemap = %{version}-%{release}
+Requires: pypi-geventhttpclient-lib = %{version}-%{release}
 Requires: pypi-geventhttpclient-license = %{version}-%{release}
 Requires: pypi-geventhttpclient-python = %{version}-%{release}
 Requires: pypi-geventhttpclient-python3 = %{version}-%{release}
@@ -22,6 +24,24 @@ BuildRequires : pypi(six)
 %description
 # geventhttpclient
 [![Build Status](https://travis-ci.org/gwik/geventhttpclient.svg?branch=master)](https://travis-ci.org/gwik/geventhttpclient)
+
+%package filemap
+Summary: filemap components for the pypi-geventhttpclient package.
+Group: Default
+
+%description filemap
+filemap components for the pypi-geventhttpclient package.
+
+
+%package lib
+Summary: lib components for the pypi-geventhttpclient package.
+Group: Libraries
+Requires: pypi-geventhttpclient-license = %{version}-%{release}
+Requires: pypi-geventhttpclient-filemap = %{version}-%{release}
+
+%description lib
+lib components for the pypi-geventhttpclient package.
+
 
 %package license
 Summary: license components for the pypi-geventhttpclient package.
@@ -43,6 +63,7 @@ python components for the pypi-geventhttpclient package.
 %package python3
 Summary: python3 components for the pypi-geventhttpclient package.
 Group: Default
+Requires: pypi-geventhttpclient-filemap = %{version}-%{release}
 Requires: python3-core
 Provides: pypi(geventhttpclient)
 Requires: pypi(brotli)
@@ -57,13 +78,16 @@ python3 components for the pypi-geventhttpclient package.
 %prep
 %setup -q -n geventhttpclient-1.5.3
 cd %{_builddir}/geventhttpclient-1.5.3
+pushd ..
+cp -a geventhttpclient-1.5.3 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1649751112
+export SOURCE_DATE_EPOCH=1653332585
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -75,6 +99,15 @@ export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3 "
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
+python3 setup.py build
+
+popd
 %install
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
@@ -84,9 +117,26 @@ python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3 "
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
+python3 -tt setup.py build install --root=%{buildroot}-v3
+popd
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
+
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-pypi-geventhttpclient
+
+%files lib
+%defattr(-,root,root,-)
+/usr/share/clear/optimized-elf/other*
 
 %files license
 %defattr(0644,root,root,0755)
