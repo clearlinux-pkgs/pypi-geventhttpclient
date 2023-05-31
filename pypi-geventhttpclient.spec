@@ -5,7 +5,7 @@
 #
 Name     : pypi-geventhttpclient
 Version  : 2.0.9
-Release  : 20
+Release  : 21
 URL      : https://files.pythonhosted.org/packages/22/d0/619854ff9071f332bcb285d5912d9aa3c80479ef7e95b8907762ba2f3214/geventhttpclient-2.0.9.tar.gz
 Source0  : https://files.pythonhosted.org/packages/22/d0/619854ff9071f332bcb285d5912d9aa3c80479ef7e95b8907762ba2f3214/geventhttpclient-2.0.9.tar.gz
 Summary  : http client library for gevent
@@ -15,10 +15,6 @@ Requires: pypi-geventhttpclient-license = %{version}-%{release}
 Requires: pypi-geventhttpclient-python = %{version}-%{release}
 Requires: pypi-geventhttpclient-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
-BuildRequires : pypi(brotli)
-BuildRequires : pypi(certifi)
-BuildRequires : pypi(gevent)
-BuildRequires : pypi(six)
 BuildRequires : python3-dev
 # Suppress stripping binaries
 %define __strip /bin/true
@@ -71,7 +67,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1683037610
+export SOURCE_DATE_EPOCH=1685559652
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
