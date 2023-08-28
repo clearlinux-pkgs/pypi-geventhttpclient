@@ -4,10 +4,10 @@
 # Using build pattern: distutils3
 #
 Name     : pypi-geventhttpclient
-Version  : 2.0.9
-Release  : 21
-URL      : https://files.pythonhosted.org/packages/22/d0/619854ff9071f332bcb285d5912d9aa3c80479ef7e95b8907762ba2f3214/geventhttpclient-2.0.9.tar.gz
-Source0  : https://files.pythonhosted.org/packages/22/d0/619854ff9071f332bcb285d5912d9aa3c80479ef7e95b8907762ba2f3214/geventhttpclient-2.0.9.tar.gz
+Version  : 2.0.10
+Release  : 22
+URL      : https://files.pythonhosted.org/packages/9e/39/1a3758766115a50fa69ee52a29e1fbd3eba657c995e2678ab177337457ef/geventhttpclient-2.0.10.tar.gz
+Source0  : https://files.pythonhosted.org/packages/9e/39/1a3758766115a50fa69ee52a29e1fbd3eba657c995e2678ab177337457ef/geventhttpclient-2.0.10.tar.gz
 Summary  : http client library for gevent
 Group    : Development/Tools
 License  : MIT
@@ -15,6 +15,10 @@ Requires: pypi-geventhttpclient-license = %{version}-%{release}
 Requires: pypi-geventhttpclient-python = %{version}-%{release}
 Requires: pypi-geventhttpclient-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
+BuildRequires : pypi(brotli)
+BuildRequires : pypi(certifi)
+BuildRequires : pypi(gevent)
+BuildRequires : pypi(six)
 BuildRequires : python3-dev
 # Suppress stripping binaries
 %define __strip /bin/true
@@ -22,7 +26,8 @@ BuildRequires : python3-dev
 
 %description
 # geventhttpclient
-[![Build Status](https://travis-ci.org/gwik/geventhttpclient.svg?branch=master)](https://travis-ci.org/gwik/geventhttpclient)
+A high performance, concurrent HTTP client library for python using
+[gevent](http://gevent.org).
 
 %package license
 Summary: license components for the pypi-geventhttpclient package.
@@ -56,10 +61,10 @@ python3 components for the pypi-geventhttpclient package.
 
 
 %prep
-%setup -q -n geventhttpclient-2.0.9
-cd %{_builddir}/geventhttpclient-2.0.9
+%setup -q -n geventhttpclient-2.0.10
+cd %{_builddir}/geventhttpclient-2.0.10
 pushd ..
-cp -a geventhttpclient-2.0.9 buildavx2
+cp -a geventhttpclient-2.0.10 buildavx2
 popd
 
 %build
@@ -67,7 +72,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1685559652
+export SOURCE_DATE_EPOCH=1693251269
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
