@@ -1,5 +1,5 @@
 PKG_NAME := pypi-geventhttpclient
-URL = https://files.pythonhosted.org/packages/9e/39/1a3758766115a50fa69ee52a29e1fbd3eba657c995e2678ab177337457ef/geventhttpclient-2.0.10.tar.gz
+URL = https://files.pythonhosted.org/packages/f2/13/44907f010f2db2156480b0ef83cb3fecb09da0b3e9ab8128716a162c635e/geventhttpclient-2.0.11.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
