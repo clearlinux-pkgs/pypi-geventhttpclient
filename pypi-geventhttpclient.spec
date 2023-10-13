@@ -5,7 +5,7 @@
 #
 Name     : pypi-geventhttpclient
 Version  : 2.0.11
-Release  : 23
+Release  : 24
 URL      : https://files.pythonhosted.org/packages/f2/13/44907f010f2db2156480b0ef83cb3fecb09da0b3e9ab8128716a162c635e/geventhttpclient-2.0.11.tar.gz
 Source0  : https://files.pythonhosted.org/packages/f2/13/44907f010f2db2156480b0ef83cb3fecb09da0b3e9ab8128716a162c635e/geventhttpclient-2.0.11.tar.gz
 Summary  : http client library for gevent
