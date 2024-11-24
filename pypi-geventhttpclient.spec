@@ -6,13 +6,13 @@
 # autospec commit: 5424026
 #
 Name     : pypi-geventhttpclient
-Version  : 2.3.2
-Release  : 30
-URL      : https://files.pythonhosted.org/packages/b4/7f/02f7a5152025314b9624877bda32e20291c305454ebc5e11fbc8c1169061/geventhttpclient-2.3.2.tar.gz
-Source0  : https://files.pythonhosted.org/packages/b4/7f/02f7a5152025314b9624877bda32e20291c305454ebc5e11fbc8c1169061/geventhttpclient-2.3.2.tar.gz
+Version  : 2.3.3
+Release  : 31
+URL      : https://files.pythonhosted.org/packages/29/26/018524ea81b2021dc2fe60e1a9c3f5eb347e09a5364cdcb7b92d7e7d3c28/geventhttpclient-2.3.3.tar.gz
+Source0  : https://files.pythonhosted.org/packages/29/26/018524ea81b2021dc2fe60e1a9c3f5eb347e09a5364cdcb7b92d7e7d3c28/geventhttpclient-2.3.3.tar.gz
 Summary  : HTTP client library for gevent
 Group    : Development/Tools
-License  : License. MIT licensed under
+License  : MIT
 Requires: pypi-geventhttpclient-license = %{version}-%{release}
 Requires: pypi-geventhttpclient-python = %{version}-%{release}
 Requires: pypi-geventhttpclient-python3 = %{version}-%{release}
@@ -61,10 +61,10 @@ python3 components for the pypi-geventhttpclient package.
 
 
 %prep
-%setup -q -n geventhttpclient-2.3.2
-cd %{_builddir}/geventhttpclient-2.3.2
+%setup -q -n geventhttpclient-2.3.3
+cd %{_builddir}/geventhttpclient-2.3.3
 pushd ..
-cp -a geventhttpclient-2.3.2 buildavx2
+cp -a geventhttpclient-2.3.3 buildavx2
 popd
 
 %build
@@ -72,7 +72,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1732302221
+export SOURCE_DATE_EPOCH=1732467383
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
